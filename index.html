@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Game</title>
+    <style>
+        .puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(7, 40px);
+            grid-template-rows: repeat(6, 78px);
+            gap: 2px;
+        }
+        .puzzle-piece {
+            width: 40px;
+            height: 78px;
+            border: 1px solid #000;
+            background-size: cover;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="puzzle-container" id="puzzleContainer"></div>
+    <script src="puzzle.js"></script>
+</body>
+</html>
