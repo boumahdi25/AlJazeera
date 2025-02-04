@@ -1,0 +1,83 @@
+/* ===================== */
+/* 🎨 STYLES DU PUZZLE  */
+/* ===================== */
+#puzzleContainer {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 2px;
+    width: 300px;
+    height: 600px;
+    margin: auto;
+    justify-content: center;
+}
+
+.puzzle-piece {
+    width: 40px;
+    height: 78px;
+    background-size: cover;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+/* ========================== */
+/* ✨ STYLE 3D DES BOUTONS    */
+/* ========================== */
+button {
+    background: linear-gradient(145deg, #000000, #a5b60d);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    
+    /* Effet 3D */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Effet au survol */
+button:hover {
+    background: linear-gradient(to bottom, #f30808, #900bdd);
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.5), inset -3px -3px 6px rgba(255, 255, 255, 0.3);
+}
+
+/* Effet au clic */
+button:active {
+    transform: translateY(3px);
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* ===================== */
+/* ⏱️ STYLE DU CHRONO 3D */
+/* ===================== */
+#timerDisplay {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e2b00a;
+    text-align: center;
+    padding: 10px 20px;
+    background: #000000;
+    border-radius: 5px;
+
+   
+}
+button {
+    margin: 2px; /* Ajoute un espace de 2 pixels entre les boutons */
+}
+button {
+    margin: 2px;
+}
+#titleDisplay {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 2px; /* Réduit l'espace sous le titre (0.2 cm ≈ 2px) */
+}
+
+button {
+    margin-top: 2px; /* Réduit l'espace au-dessus des boutons */
+}

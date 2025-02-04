@@ -1,27 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puzzle Game</title>
     <style>
-        .puzzle-container {
+
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 88vh;
+            background-color: #f0f0f0;
+        }
+
+
+
+        
+        #timerDisplay {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        #puzzleContainer {
             display: grid;
             grid-template-columns: repeat(7, 40px);
             grid-template-rows: repeat(6, 78px);
             gap: 2px;
+            background-color: white;
+            padding: 10px;
+            border: 2px solid #000;
         }
+
         .puzzle-piece {
             width: 40px;
             height: 78px;
-            border: 1px solid #000;
             background-size: cover;
+            border: 1px solid #ccc;
             cursor: pointer;
         }
+
+        
     </style>
 </head>
 <body>
-    <div class="puzzle-container" id="puzzleContainer"></div>
+    <h2 id="titleDisplay">الجزيرة  الصورة  الكاملة</h2>
+    <button id="orderButton">اعاذة الترتيب</button>
+    <button id="resetButton">اعادة  التشغيل</button>
+
+    <div id="timerDisplay">الوقت  دقيقة  ثانية:  0</div>
+    <div id="puzzleContainer"></div>
+
     <script src="puzzle.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    
 </body>
 </html>

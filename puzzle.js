@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
     const puzzleContainer = document.getElementById("puzzleContainer");
+    const timerDisplay = document.getElementById("timerDisplay");
+    const titleDisplay = document.getElementById("titleDisplay");
+    let timeElapsed = 0;
+    let timer;
+    
     const imagePaths = [];
     for (let i = 1; i <= 42; i++) {
         imagePaths.push(`images/slide_${i}.png`);
@@ -7,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let emptyIndex = 41;
     const puzzlePieces = [];
+
 
     function shuffle(array) {
         for (let i = array.length - 2; i > 0; i--) {
@@ -26,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
             puzzlePieces.push(piece);
         }
         puzzlePieces[emptyIndex].style.backgroundImage = "";
+        startTimer();
     }
 
     function movePiece(index) {
