@@ -13,7 +13,7 @@ async def start(update: Update, context) -> None:
 # Fonction principale qui lance le bot
 def main() -> None:
     # Remplacez 'VOTRE_TOKEN_D_ACCES' par le token de votre bot Telegram
-    token = "8165761277:AAH-dafuWHa61Trd005X_839YgiCO9xaZJw"
+    token = "7963739930:AAGLR3reZEHliOWOG6lshDZ02miBzkSOAdg"
 
 
     # Création de l'application avec le token

@@ -43,21 +43,22 @@
             cursor: pointer;
         }
 
-        
     </style>
 </head>
 <body>
     <h2 id="titleDisplay">الجزيرة  الصورة  الكاملة</h2>
-    <button id="orderButton">اعاذة الترتيب</button>
-    <button id="resetButton">اعادة  التشغيل</button>
-
-    <div id="timerDisplay">الوقت  دقيقة  ثانية:  0</div>
+    <div class="button-container">
+        <button id="shuffleButton">خلط</button>
+        <button id="orderButton">اعادة الترتيب</button>
+        <button id="resetButton">اعادة التشغيل</button>
+    </div>
+    <div id="timerDisplay">الوقت: 0 دقيقة 0 ثانية</div>
     <div id="puzzleContainer"></div>
+    <link rel="stylesheet" href="style.css">
 
     <script src="puzzle.js"></script>
     <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
-
+    
     
 </body>
 </html>

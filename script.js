@@ -2,12 +2,35 @@ document.addEventListener("DOMContentLoaded", function() {
     const puzzleContainer = document.getElementById("puzzleContainer");
     const orderButton = document.getElementById("orderButton");
     const resetButton = document.getElementById("resetButton");
+    const shuffleButton = document.getElementById("shuffleButton");
     const timerDisplay = document.getElementById("timerDisplay");
     let puzzlePieces = [];
     let emptyIndex = 41;
     let timerInterval = null;
     let elapsedTime = 0;
     let isRunning = false;
+
+    // Sélectionne une musique aléatoire parmi les 9 fichiers disponibles
+    const numSongs = 9;
+    let songIndex = Math.floor(Math.random() * numSongs) + 1;
+    let audio = new Audio(`songs/song${songIndex}.mp3`);
+
+    // Fonction pour jouer une nouvelle musique après la fin de la précédente
+    function playNextSong() {
+        songIndex = Math.floor(Math.random() * numSongs) + 1;
+        audio.src = `songs/song${songIndex}.mp3`;
+        audio.play().catch(error => console.log("Lecture bloquée :", error));
+    }
+
+    // Lorsque la chanson se termine, jouer la suivante
+    audio.addEventListener("ended", playNextSong);
+
+    // Démarrer la musique au premier clic sur la page
+    document.addEventListener("click", () => {
+        if (audio.paused) {
+            audio.play().catch(error => console.log("Autoplay bloqué :", error));
+        }
+    }, { once: true });
 
     function startTimer() {
         if (isRunning) return; // Empêche le démarrage de plusieurs timers
@@ -24,37 +47,15 @@ document.addEventListener("DOMContentLoaded", function() {
         timerInterval = null;
         isRunning = false;
     }
-    let timeElapsed = 0;
-    let timer;
-    
-    // Fonction pour mettre à jour l'affichage du chrono
+
     function updateTimerDisplay() {
-        let minutes = Math.floor(timeElapsed / 60);
-        let seconds = timeElapsed % 60;
-        document.getElementById("timerDisplay").textContent = `الوقت: ${minutes} دقيقة ${seconds} ثانية`;
+        const minutes = Math.floor(elapsedTime / 60);
+        const seconds = elapsedTime % 60;
+        timerDisplay.textContent = `الوقت: ${minutes} دقيقة ${seconds} ثانية`;
     }
-    
-    // Fonction pour démarrer le chrono
-    function startTimer() {
-        if (!timer) {  // Empêche plusieurs intervalles de tourner en même temps
-            timer = setInterval(() => {
-                timeElapsed++;
-                updateTimerDisplay();
-            }, 1000);
-        }
-    }
-    
-    // Démarrer le chrono au premier clic sur la page
-    document.addEventListener("click", () => {
-        startTimer();
-    }, { once: true }); // Empêche de redémarrer le chrono après le premier clic
-    
-
-
-
-
 
     function createPuzzle(shuffle = true) {
+        stopTimer(); // Arrêter le chrono avant de créer le puzzle
         puzzleContainer.innerHTML = "";
         puzzlePieces = [];
         let imagePaths = [];
@@ -79,11 +80,15 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 emptyIndex = i;
             }
-            piece.addEventListener("click", () => movePiece(i));
+            piece.addEventListener("click", () => {
+                movePiece(i);
+                if (!isRunning) {
+                    startTimer();
+                }
+            });
             puzzleContainer.appendChild(piece);
             puzzlePieces.push(piece);
         }
-        startTimer();
     }
 
     function movePiece(index) {
@@ -116,28 +121,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     orderButton.addEventListener("click", orderPuzzle);
     resetButton.addEventListener("click", resetPuzzle);
+    shuffleButton.addEventListener("click", () => {
+        stopTimer();
+        elapsedTime = 0; // Remise à zéro du chrono
+        createPuzzle();
+    });
     createPuzzle();
 });
-// Liste des musiques disponibles
-// Sélectionne un fichier audio aléatoire// Sélectionne une musique aléatoire parmi les 9 fichiers disponibles
-// Sélectionne une musique aléatoire
-const numSongs = 9;
-let songIndex = Math.floor(Math.random() * numSongs) + 1;
-let audio = new Audio(`songs/song${songIndex}.mp3`);
-
-// Fonction pour jouer une nouvelle musique après la fin de la précédente
-function playNextSong() {
-    songIndex = Math.floor(Math.random() * numSongs) + 1;
-    audio.src = `songs/song${songIndex}.mp3`;
-    audio.play().catch(error => console.log("Lecture bloquée :", error));
-}
-
-// Lorsque la chanson se termine, jouer la suivante
-audio.addEventListener("ended", playNextSong);
-
-// Démarrer la musique au premier clic sur la page
-document.addEventListener("click", () => {
-    if (audio.paused) {
-        audio.play().catch(error => console.log("Autoplay bloqué :", error));
-    }
-}, { once: true }); // L'événement ne s'exécute qu'une seule fois
