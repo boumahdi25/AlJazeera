@@ -1,23 +1,27 @@
-import webbrowser
 import os
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, CallbackContext
+from telegram import Bot, Update
+from telegram.ext import CommandHandler, CallbackContext, Updater
 
-# Remplacez par le token de votre bot
-TOKEN = "7963739930:AAGLR3reZEHliOWOG6lshDZ02miBzkSOAdg"
+# Votre fonction de démarrage de bot
+def start(update: Update, context: CallbackContext):
+    update.message.reply_text('Hello! Bot is running.')
 
-async def start(update: Update, context: CallbackContext):
-    await update.message.reply_text("Bonjour! Je suis votre bot.")
+# Configurez le bot avec votre token
+TOKEN = os.getenv('7963739930:AAGLR3reZEHliOWOG6lshDZ02miBzkSOAdg')
+bot = Bot(token=TOKEN)
 
-def main():
-    app = ApplicationBuilder().token(TOKEN).build()
+# Configurez l'updater et dispatcher
+updater = Updater(bot=bot, use_context=True)
+dispatcher = updater.dispatcher
 
-    # Commande /start
-    app.add_handler(CommandHandler("start", start))
+# Ajoutez des handlers
+dispatcher.add_handler(CommandHandler('start', start))
 
-    # Lancer le bot
-    app.run_polling(drop_pending_updates=True)
+# Utilisez le port spécifié par Render
+PORT = int(os.environ.get('PORT', '8443'))
 
-if __name__ == '__main__':
-    main()
+# Démarrez le bot avec webhook
+updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
+updater.bot.setWebhook(f"https://{os.getenv('RENDER_EXTERNAL_HOSTNAME')}/{TOKEN}")
 
+updater.idle()
