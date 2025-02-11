@@ -1,27 +1,33 @@
 import os
+from dotenv import load_dotenv
 from telegram import Bot, Update
 from telegram.ext import CommandHandler, CallbackContext, Updater
 
-# Votre fonction de démarrage de bot
-def start(update: Update, context: CallbackContext):
-    update.message.reply_text('Hello! Bot is running.')
+# Charger les variables d'environnement
+load_dotenv()
 
-# Configurez le bot avec votre token
-TOKEN = os.getenv('7963739930:AAGLR3reZEHliOWOG6lshDZ02miBzkSOAdg')
+# Récupérer le token depuis le fichier .env
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+if not TOKEN:
+    raise ValueError("Token Telegram manquant. Vérifie ton fichier .env.")
+
 bot = Bot(token=TOKEN)
 
-# Configurez l'updater et dispatcher
+# Fonction de démarrage du bot
+def start(update: Update, context: CallbackContext):
+    update.message.reply_text("Hello! Bot is running.")
+
+# Configuration de l'updater et du dispatcher
 updater = Updater(bot=bot, use_context=True)
 dispatcher = updater.dispatcher
 
-# Ajoutez des handlers
-dispatcher.add_handler(CommandHandler('start', start))
+# Ajouter le handler pour la commande /start
+dispatcher.add_handler(CommandHandler("start", start))
 
-# Utilisez le port spécifié par Render
-PORT = int(os.environ.get('PORT', '8443'))
-
-# Démarrez le bot avec webhook
+# Utilisation du port et webhook
+PORT = int(os.environ.get("PORT", 8443))
 updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
 updater.bot.setWebhook(f"https://{os.getenv('RENDER_EXTERNAL_HOSTNAME')}/{TOKEN}")
 
 updater.idle()
+
