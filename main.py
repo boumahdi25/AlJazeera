@@ -13,9 +13,9 @@ bot = Bot(token=TOKEN)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("Bouton 1", callback_data='1')],
-        [InlineKeyboardButton("Bouton 2", callback_data='2')],
-        [InlineKeyboardButton("Bouton 3", callback_data='3')]
+        [InlineKeyboardButton("🔵 Bouton 1", callback_data='1')],
+        [InlineKeyboardButton("🔴 Bouton 2", callback_data='2')],
+        [InlineKeyboardButton("🟢 Bouton 3", callback_data='3')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text('Choisissez une option:', reply_markup=reply_markup)
@@ -23,7 +23,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text(text=f"Vous avez cliqué sur le bouton {query.data}")
+    if query.data == '1':
+        await query.edit_message_text(text="Vous avez cliqué sur le bouton 1")
+    elif query.data == '2':
+        await query.edit_message_text(text="Vous avez cliqué sur le bouton 2")
+    elif query.data == '3':
+        await query.edit_message_text(text="Vous avez cliqué sur le bouton 3")
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -45,5 +50,6 @@ if __name__ == "__main__":
     )
 
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
 
 
