@@ -13,12 +13,10 @@ bot = Bot(token=TOKEN)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🔵 Bouton 1", url='https://boumahdi25.github.io/AlJazeera/')],
-        [InlineKeyboardButton("🔴 Bouton 2", url='https://example.com/url2')],
-        [InlineKeyboardButton("🟢 Bouton 3", url='https://example.com/url3')]
+        [InlineKeyboardButton("🟢🔵 Aljazeera 🟢🔵", url='https://boumahdi25.github.io/AlJazeera/')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text('Choisissez une option:', reply_markup=reply_markup)
+    await update.message.reply_text('Bienvenue! Cliquez sur le bouton ci-dessous pour accéder au menu:', reply_markup=reply_markup)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -39,5 +37,3 @@ if __name__ == "__main__":
     )
 
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-
-
