@@ -1,7 +1,7 @@
 from flask import Flask, request
 import os
 from telegram import Bot, Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import CommandHandler, CallbackQueryHandler, ApplicationBuilder
+from telegram.ext import CommandHandler, CallbackQueryHandler, ApplicationBuilder, ContextTypes
 
 app = Flask(__name__)
 
@@ -11,19 +11,19 @@ if not TOKEN:
 
 bot = Bot(token=TOKEN)
 
-def start(update: Update, context):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("Bouton 1", callback_data='1')],
         [InlineKeyboardButton("Bouton 2", callback_data='2')],
         [InlineKeyboardButton("Bouton 3", callback_data='3')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text('Choisissez une option:', reply_markup=reply_markup)
+    await update.message.reply_text('Choisissez une option:', reply_markup=reply_markup)
 
-def button(update: Update, context):
+async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
-    query.answer()
-    query.edit_message_text(text=f"Vous avez cliqué sur le bouton {query.data}")
+    await query.answer()
+    await query.edit_message_text(text=f"Vous avez cliqué sur le bouton {query.data}")
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -45,4 +45,5 @@ if __name__ == "__main__":
     )
 
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
 
