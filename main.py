@@ -24,7 +24,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     if query.data == '1':
-        await query.edit_message_text(text="Vous avez cliqué sur le bouton 1")
+        await query.edit_message_text(text="Voici le puzzle : https://boumahdi25.github.io/AlJazeera/")
     elif query.data == '2':
         await query.edit_message_text(text="Vous avez cliqué sur le bouton 2")
     elif query.data == '3':
@@ -50,6 +50,7 @@ if __name__ == "__main__":
     )
 
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
 
 
 
