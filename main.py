@@ -6,6 +6,9 @@ from telegram.ext import CommandHandler, CallbackQueryHandler, ApplicationBuilde
 app = Flask(__name__)
 
 TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
+if not TOKEN:
+    raise ValueError("TELEGRAM_BOT_TOKEN is not set")
+
 bot = Bot(token=TOKEN)
 
 def start(update: Update, context):
@@ -42,3 +45,4 @@ if __name__ == "__main__":
     )
 
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
