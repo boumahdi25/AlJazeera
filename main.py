@@ -38,7 +38,7 @@ if __name__ == "__main__":
         listen="0.0.0.0",
         port=int(os.environ.get('PORT', 5000)),
         url_path=TOKEN,
-        webhook_url='https://boumahdi25.github.io/AlJazeera/' + TOKEN
+        webhook_url='https://aljazeera.onrender.com/' + TOKEN
     )
 
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
